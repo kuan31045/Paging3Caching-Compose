@@ -21,12 +21,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import com.kappstudio.paging3composesample.R
 import com.kappstudio.paging3composesample.data.Repo
+import com.kappstudio.paging3composesample.ui.theme.Paging3ComposeTheme
 
 @Composable
 fun RepoScreen(
@@ -44,11 +46,11 @@ fun RepoScreen(
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        if(repos.loadState.refresh is LoadState.Loading){
+        if (repos.loadState.refresh is LoadState.Loading) {
             CircularProgressIndicator(
                 modifier = Modifier.align(Alignment.Center)
             )
-        }else{
+        } else {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -95,5 +97,20 @@ fun RepoItem(repo: Repo, modifier: Modifier = Modifier) {
                 Text(text = repo.starCount.toString())
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun RepoItemPreview() {
+    Paging3ComposeTheme {
+        RepoItem(
+            repo = Repo(
+                id = 1,
+                name = "SampleProject",
+                description = "This is a description for sample project",
+                starCount = 1000
+            )
+        )
     }
 }
