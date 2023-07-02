@@ -5,8 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class RepoEntity(
-    @PrimaryKey
-    val id: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val repoId: Int,
     val name: String,
     val description: String?,
     val starCount: Int

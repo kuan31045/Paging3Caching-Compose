@@ -9,7 +9,7 @@ interface GithubApi {
     @GET("search/repositories?sort=stars&q=Android")
     suspend fun searchRepos(
         @Query("page") page: Int, @Query("per_page") perPage: Int
-    ): List<RepoDto>
+    ): RepoResponse
 
     companion object {
         const val BASE_URL = "https://api.github.com/"

@@ -48,7 +48,7 @@ class RepoRemoteMediator(
             val repos = githubApi.searchRepos(
                 page = loadKey,
                 perPage = state.config.pageSize
-            )
+            ).items
 
             repoDb.apply {
                 withTransaction {
@@ -61,7 +61,7 @@ class RepoRemoteMediator(
             }
 
             MediatorResult.Success(
-                endOfPaginationReached = repos.isEmpty()
+                endOfPaginationReached = repos.size < state.config.pageSize
             )
         } catch (e: IOException) {
             MediatorResult.Error(e)

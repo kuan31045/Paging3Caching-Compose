@@ -2,6 +2,7 @@ package com.kappstudio.paging3composesample.ui
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,19 +42,28 @@ fun RepoScreen(
             ).show()
         }
     }
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalAlignment = Alignment.Start
-    ) {
-        items(repos) { repo ->
-            if (repo != null) {
-                RepoItem(repo = repo, modifier = Modifier.fillMaxWidth())
-            }
-        }
-        item {
-            if (repos.loadState.append is LoadState.Loading) {
-                CircularProgressIndicator()
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        if(repos.loadState.refresh is LoadState.Loading){
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center)
+            )
+        }else{
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                items(repos) { repo ->
+                    if (repo != null) {
+                        RepoItem(repo = repo, modifier = Modifier.fillMaxWidth())
+                    }
+                }
+                item {
+                    if (repos.loadState.append is LoadState.Loading) {
+                        CircularProgressIndicator()
+                    }
+                }
             }
         }
     }

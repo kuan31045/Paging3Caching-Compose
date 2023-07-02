@@ -5,7 +5,7 @@ import com.kappstudio.paging3composesample.data.remote.RepoDto
 
 fun RepoDto.toRepoEntity(): RepoEntity {
     return RepoEntity(
-        id = id,
+        repoId = id,
         name = name,
         description = description,
         starCount = stargazers_count
@@ -14,7 +14,7 @@ fun RepoDto.toRepoEntity(): RepoEntity {
 
 fun RepoEntity.toRepo(): Repo {
     return Repo(
-        id = id,
+        id = repoId,
         name = name,
         description = description,
         starCount = starCount
