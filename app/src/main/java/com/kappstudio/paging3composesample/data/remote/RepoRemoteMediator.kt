@@ -18,9 +18,9 @@ import java.io.IOException
  */
 
 @OptIn(ExperimentalPagingApi::class)
-class RemoteMediator(
+class RepoRemoteMediator(
     private val repoDb: RepoDatabase,
-    private val repoApi: GithubApi
+    private val githubApi: GithubApi
 ) : RemoteMediator<Int, RepoEntity>() {
     override suspend fun load(
         loadType: LoadType,
@@ -45,7 +45,7 @@ class RemoteMediator(
             }
 
             delay(2000L)
-            val repos = repoApi.searchRepos(
+            val repos = githubApi.searchRepos(
                 page = loadKey,
                 perPage = state.config.pageSize
             )

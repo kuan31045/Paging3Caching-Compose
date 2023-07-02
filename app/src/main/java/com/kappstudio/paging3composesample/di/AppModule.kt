@@ -2,6 +2,8 @@ package com.kappstudio.paging3composesample.di
 
 import android.content.Context
 import androidx.room.Room
+import com.kappstudio.paging3composesample.data.Repository
+import com.kappstudio.paging3composesample.data.RepositoryImpl
 import com.kappstudio.paging3composesample.data.local.RepoDatabase
 import com.kappstudio.paging3composesample.data.remote.GithubApi
 import dagger.Module
@@ -36,5 +38,11 @@ object AppModule {
             RepoDatabase::class.java,
             "repo.db"
         ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRepository(githubApi: GithubApi, repoDb: RepoDatabase): Repository {
+        return RepositoryImpl(githubApi = githubApi, repoDb = repoDb)
     }
 }
